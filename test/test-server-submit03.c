@@ -167,7 +167,11 @@ int test_out_of_bounds_write(void) {
 int main(void) {
 
 	/* place communication socket in the current directory */
-	cmusfm_socket_file = tempnam(".", "tmp-");
+	char tmpname[] = "./tmp-XXXXXX";
+	int tmpfd = mkstemp(tmpname);
+	close(tmpfd);
+	unlink(tmpname);
+	cmusfm_socket_file = tmpname;
 	/* use "%artist - %title[.ext]" format for name parser */
 	strcpy(config.format_localfile, "^(?A.+) - (?T.+)\\.[^.]+$");
 	strcpy(config.format_shoutcast, "^(?A.+) - (?T.+)$");

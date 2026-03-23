@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "../src/cache.c"
 #include "../src/utils.c"
@@ -30,7 +31,11 @@ int main(void) {
 	char buffer[512];
 	int i;
 
-	cmusfm_cache_file = tempnam(".", "tmp-");
+	char tmpname[] = "./tmp-XXXXXX";
+	int tmpfd = mkstemp(tmpname);
+	close(tmpfd);
+	unlink(tmpname);
+	cmusfm_cache_file = tmpname;
 
 	scrobbler_trackinfo_t track_null = { 0 };
 	scrobbler_trackinfo_t track_empty = {

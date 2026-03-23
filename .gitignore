@@ -25,21 +25,9 @@
 *.x86_64
 *.hex
 
-# Autotools
-/autom4te.cache/
+# CMake
 /build*/
-/m4/
-/aclocal.m4
-/ar-lib
-/compile
-/config.guess
-/config.sub
-/configure
-/depcomp
-/install-sh
-/ltmain.sh
-/missing
-/test-driver
-Makefile.in
-config.h.in
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
 *~

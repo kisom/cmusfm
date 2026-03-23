@@ -81,10 +81,9 @@ shall use configuration as follows:
 ### Building and install
 
 ```shell
-autoreconf --install
-mkdir build && cd build
-../configure --enable-libnotify
-make && make install
+cmake -B build -DENABLE_LIBNOTIFY=ON
+cmake --build build
+cmake --install build
 ```
 
 ## Configuration

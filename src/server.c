@@ -363,7 +363,8 @@ int cmusfm_server_start(void) {
 		if (pfds[2].revents & POLLIN) {
 			/* We're watching only one file, so the result is of no importance
 			 * to us, simply read out the inotify file descriptor. */
-			read(pfds[2].fd, &inot_even, sizeof(inot_even));
+			if (read(pfds[2].fd, &inot_even, sizeof(inot_even)) == -1)
+				debug("Inotify read error: %s", strerror(errno));
 			debug("Inotify event occurred: %x", inot_even.mask);
 			cmusfm_config_read(cmusfm_config_file, &config);
 			cmusfm_config_add_watch(pfds[2].fd);

@@ -30,18 +30,10 @@ jobs:
       with:
         languages: cpp
         queries: security-and-quality
-    - name: Create Build Environment
-      run: |
-        mkdir -p ${{ github.workspace }}/build
-        autoreconf --install
-    - name: Configure GNU Automake
-      working-directory: ${{ github.workspace }}/build
-      run: |
-        ${{ github.workspace }}/configure \
-          --enable-libnotify
+    - name: Configure
+      run: cmake -B build -DENABLE_LIBNOTIFY=ON
     - name: Build
-      working-directory: ${{ github.workspace }}/build
-      run: make
+      run: cmake --build build
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v4
 
